@@ -8,11 +8,14 @@ openai = "*"
 scikit-learn = "*"
 pandas = "*"
 flask = "*"
+autoenv = "*"
+psycopg2 = "*"
 
 [dev-packages]
 tqdm = "*"
 notebook = "==7.1.2"
 ipywidgets = "*"
+hyperopt = {extras = ["all"], version = "*"}
 
 [requires]
 python_version = "3.11"
