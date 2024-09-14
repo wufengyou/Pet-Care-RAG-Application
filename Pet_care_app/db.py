@@ -1,8 +1,13 @@
 import os
+from dotenv import load_dotenv
+
 import psycopg2
+from psycopg2 import OperationalError
+
 from psycopg2.extras import DictCursor
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
+load_dotenv()
 
 RUN_TIMEZONE_CHECK = os.getenv('RUN_TIMEZONE_CHECK', '1') == '1'
 
@@ -10,14 +15,33 @@ TZ_INFO = os.getenv("TZ", "Asia/Taipei")
 tz = ZoneInfo(TZ_INFO)
 
 
-def get_db_connection():
-    return psycopg2.connect(
-        host=os.getenv("POSTGRES_HOST", "postgres"),
-        database=os.getenv("POSTGRES_DB", "course_assistant"),
-        user=os.getenv("POSTGRES_USER", "your_username"),
-        password=os.getenv("POSTGRES_PASSWORD", "your_password"),
-    )
+# def get_db_connection():
+#     print(os.getenv("POSTGRES_HOST"))
+#     return psycopg2.connect(
+#         host=os.getenv("POSTGRES_HOST", "postgres"),#"172.17.235.199",
+#         database=os.getenv("POSTGRES_DB", "pet_care"),
+#         user=os.getenv("POSTGRES_USER", "wufy1234"),
+#         password=os.getenv("POSTGRES_PASSWORD", "wufy1234"),
+#     )
 
+def get_db_connection(max_retries=5, retry_delay=5):
+    retries = 0
+    while retries < max_retries:
+        try:
+            return psycopg2.connect(
+                host=os.getenv("POSTGRES_HOST", "postgres"),
+                database=os.getenv("POSTGRES_DB", "pet_care"),
+                user=os.getenv("POSTGRES_USER", "wufy1234"),
+                password=os.getenv("POSTGRES_PASSWORD", "wufy1234"),
+            )
+        except OperationalError as e:
+            retries += 1
+            print(f"Connection attempt {retries} failed. Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+    raise Exception("Failed to connect to the database after multiple attempts")
+
+
+# 這些更改應該能解決您遇到的問題。等待腳本確保 PostgreSQL 完全啟動後才
 
 def init_db():
     conn = get_db_connection()

@@ -1,0 +1,7 @@
+POST http://localhost:5000/question
+Content-Type: application/json
+
+{
+    "question": "How can I improve the odds of my lost cat returning home?",
+    "question2": "value2"
+}

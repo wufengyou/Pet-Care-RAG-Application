@@ -7,9 +7,7 @@ from rag import rag
 import db
 
 app = Flask(__name__)
-@app.route("/", methods=["GET"])
-def handle_root():
-    return "Hello, World!"
+
 
 @app.route("/question", methods=["POST"])
 def handle_question():
@@ -60,3 +58,4 @@ def handle_feedback():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    print('hi')

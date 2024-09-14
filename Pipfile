@@ -9,13 +9,19 @@ scikit-learn = "*"
 pandas = "*"
 flask = "*"
 autoenv = "*"
-psycopg2 = "*"
+psycopg2-binary = "*"
+python-dotenv = "*"
+gunicorn = "*"
+pgcli = "*"
 
 [dev-packages]
 tqdm = "*"
 notebook = "==7.1.2"
 ipywidgets = "*"
-hyperopt = {extras = ["all"], version = "*"}
+jupyter = "*"
+requests = "*"
+pgcli = "*"
+questionary = "*"
 
 [requires]
 python_version = "3.11"
