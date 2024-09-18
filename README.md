@@ -45,6 +45,7 @@ This project is a Pet Care Q&A system that uses AI to answer questions about pet
 2. Enter your pet care question in the text box and click "Ask"
 3. View the AI-generated answer and provide feedback if desired
 4. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
+![image](c9rui-mcj6i.gif)
 
 ## File Structure
 
