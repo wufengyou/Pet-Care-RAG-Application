@@ -29,8 +29,8 @@ This project is a Pet Care Q&A system that uses AI to answer questions about pet
    ```
    OPENAI_API_KEY=your_openai_api_key
    POSTGRES_DB=pet_care
-   POSTGRES_USER=wufy1234
-   POSTGRES_PASSWORD=wufy1234
+   POSTGRES_USER=POSTGRES_USER
+   POSTGRES_PASSWORD=POSTGRES_PASSWORD
    GRAFANA_ADMIN_PASSWORD=admin
    ```
 3. Build and start the services:
@@ -68,6 +68,7 @@ pet-care-qa/
     ├── rag.py
     └── db.py
 ```
+
 ## Problem Description
 
 This RAG LLM system could address:
@@ -109,7 +110,6 @@ it contains 583 data  rows and 2 columns ,one is 'Question' and the other is 'An
 ip install pipenv
 ```
 
-
 ## Troubleshooting
 
 If you encounter issues connecting to the Streamlit interface:
@@ -137,5 +137,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License.
-
-
