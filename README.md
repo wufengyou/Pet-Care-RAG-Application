@@ -21,7 +21,7 @@ This project is a Pet Care Q&A system that uses AI to answer questions about pet
 
    ```
    git clone <repository-url>
-   cd pet-care-qa
+   
    ```
 2. Set up environment variables:
    Create a `.env` file in the root directory and add the following:
