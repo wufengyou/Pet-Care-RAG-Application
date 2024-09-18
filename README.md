@@ -108,7 +108,7 @@ Make sure you have pipenv installed:
 it contains 583 data  rows and 2 columns ,one is 'Question' and the other is 'Answer'
 
 ```bash
-ip install pipenv
+pip install pipenv
 ```
 
 ## Troubleshooting
