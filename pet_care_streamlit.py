@@ -1,11 +1,16 @@
 import streamlit as st
 import requests
-import json
 
 # Set the URL of your Flask app
 FLASK_APP_URL = "http://localhost:5000"  # This will work when running locally
 
 st.title("Pet Care Q&A")
+
+# Initialize session state
+if 'conversation_id' not in st.session_state:
+    st.session_state.conversation_id = None
+if 'feedback_given' not in st.session_state:
+    st.session_state.feedback_given = False
 
 # Question input
 question = st.text_input("Enter your question about pet care:")
@@ -21,25 +26,29 @@ if st.button("Ask"):
             
             # Store conversation_id in session state
             st.session_state.conversation_id = result["conversation_id"]
-            
-            # Display feedback buttons
-            col1, col2 = st.columns(2)
-            with col1:
-                if st.button("👍 Helpful"):
-                    feedback_response = requests.post(f"{FLASK_APP_URL}/feedback", 
-                                                      json={"conversation_id": st.session_state.conversation_id, "feedback": 1})
-                    if feedback_response.status_code == 200:
-                        st.success("Thank you for your feedback!")
-            with col2:
-                if st.button("👎 Not Helpful"):
-                    feedback_response = requests.post(f"{FLASK_APP_URL}/feedback", 
-                                                      json={"conversation_id": st.session_state.conversation_id, "feedback": -1})
-                    if feedback_response.status_code == 200:
-                        st.success("Thank you for your feedback!")
+            st.session_state.feedback_given = False
         else:
             st.error("An error occurred while processing your question.")
     else:
         st.warning("Please enter a question.")
+
+# Display feedback buttons
+if st.session_state.conversation_id and not st.session_state.feedback_given:
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("👍 Helpful"):
+            feedback_response = requests.post(f"{FLASK_APP_URL}/feedback", 
+                                              json={"conversation_id": st.session_state.conversation_id, "feedback": 1})
+            if feedback_response.status_code == 200:
+                st.success("Thank you for your feedback!")
+                st.session_state.feedback_given = True
+    with col2:
+        if st.button("👎 Not Helpful"):
+            feedback_response = requests.post(f"{FLASK_APP_URL}/feedback", 
+                                              json={"conversation_id": st.session_state.conversation_id, "feedback": -1})
+            if feedback_response.status_code == 200:
+                st.success("Thank you for your feedback!")
+                st.session_state.feedback_given = True
 
 # Instructions for running the app
 st.sidebar.header("How to use")

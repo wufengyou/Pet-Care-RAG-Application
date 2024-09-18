@@ -21,7 +21,7 @@ This project is a Pet Care Q&A system that uses AI to answer questions about pet
 
    ```
    git clone <repository-url>
-   
+
    ```
 2. Set up environment variables:
    Create a `.env` file in the root directory and add the following:
@@ -45,7 +45,7 @@ This project is a Pet Care Q&A system that uses AI to answer questions about pet
 2. Enter your pet care question in the text box and click "Ask"
 3. View the AI-generated answer and provide feedback if desired
 4. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
-![image](c9rui-mcj6i.gif)
+   ![image](image/c9rui-mcj6i.gif)
 
 ## File Structure
 
@@ -131,10 +131,35 @@ If you encounter issues connecting to the Streamlit interface:
 
 For more detailed troubleshooting steps, refer to the project documentation or open an issue on the project repository.
 
-## Contributing
+### Setting up Grafana
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+[](https://github.com/alexeygrigorev/fitness-assistant#setting-up-grafana)
 
-## License
+All Grafana configurations are in the [`grafana`](https://github.com/alexeygrigorev/fitness-assistant/blob/main/grafana) folder:
 
-This project is licensed under the MIT License.
+* [`init.py`](https://github.com/alexeygrigorev/fitness-assistant/blob/main/grafana/init.py) - for initializing the datasource and the dashboard.
+* [`dashboard.json`](https://github.com/alexeygrigorev/fitness-assistant/blob/main/grafana/dashboard.json) - the actual dashboard (taken from LLM Zoomcamp without changes).
+
+To initialize the dashboard, first ensure Grafana is running (it starts automatically when you do `docker-compose up`).
+
+Then run:
+
+```shell
+pipenv shell
+
+cd grafana
+
+# make sure the POSTGRES_HOST variable is not overwritten 
+env | grep POSTGRES_HOST
+
+python init.py
+```
+
+Then go to [localhost:3000](http://localhost:3000/):
+
+* Login: "admin"
+* Password: "admin"
+
+When prompted, keep "admin" as the new password.
+
+![image](image/vlef5-lhva6.gif)
