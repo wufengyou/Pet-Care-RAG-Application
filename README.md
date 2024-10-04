@@ -1,30 +1,111 @@
-# Pet-Care-RAG-Application
+# Pet Care RAG Application
 
-# Pet Care Q&A
+## Problem Description
 
-This project is a Pet Care Q&A system that uses AI to answer questions about pet care. It consists of a Flask backend, a Streamlit frontend, and uses PostgreSQL for data storage and Grafana for visualization.
+This Retrieval-Augmented Generation (RAG) Large Language Model (LLM) system addresses a wide range of pet care needs, focusing on both dogs and cats. It serves as a comprehensive resource for:
+
+- Pet care and behavior advice
+- Adoption guidance
+- Breed-specific information
+- Health and wellness tips
+- Behavior interpretation
+- Pet safety strategies
+- Multi-pet household management
+- Senior pet care
+- Stress management for pets
+- Specific pet type care (e.g., military dogs, pit bulls)
+
+This system aims to assist pet owners, potential adopters, and animal care professionals by providing AI-powered answers to their pet-related questions.
 
 ## Features
 
 - AI-powered answers to pet care questions
 - User feedback system
 - Data visualization with Grafana
+- Containerized application for easy deployment
 
-## Prerequisites
+## Usage
 
-- Docker and Docker Compose
-- OpenAI API Key
+1. Access the Streamlit interface at `http://localhost:8501`
+2. Enter your pet care question in the text box and click "Ask"
+3. View the AI-generated answer and provide feedback if desired
+4. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
+   ![image](image/c9rui-mcj6i.gif)
 
-## Installation
+## RAG Flow
+
+Our system implements a full RAG flow:
+
+1. **Knowledge Base**: We use a CSV file (`updated_category.csv`) as our knowledge base, which contains pet care Q&A data.
+2. **Retrieval**: We use Meilisearch for efficient retrieval of relevant information from the knowledge base.
+3. **LLM**: We utilize OpenAI's GPT model to generate responses based on the retrieved information.
+
+## Retrieval Evaluation
+
+We evaluated multiple retrieval approaches:
+
+1. We generated a ground truth retrieval dataset using OpenAI (`ground-truth-retrieval.csv`).
+2. We used Minisearch to index our knowledge base and performed retrieval evaluations.
+3. We optimized retrieval parameters, achieving:
+   - Hit Rate: 0.9080617495711836
+   - Mean Reciprocal Rank (MRR): 0.7256326063873232
+
+The optimal weights found were:
+
+- Question: 0.9367319821980193
+- Answer: 2.1628814828290253
+- Category: 0.7538333333333332
+
+## RAG Evaluation
+
+We performed a comprehensive RAG evaluation:
+
+- Relevance scores:
+  - RELEVANT: 0.925
+  - PARTLY_RELEVANT: 0.065
+  - NON_RELEVANT: 0.010
+
+These results demonstrate the high quality of our RAG system's outputs.
+
+## Interface
+
+We provide two interfaces for interacting with our application:
+
+1. **Streamlit UI**: A user-friendly web interface for asking questions and receiving answers.
+2. **Grafana GUI**: A graphic interface for easy viewing our  RAG data .
+
+## Ingestion Pipeline
+
+We have a semi-automated ingestion pipeline:
+
+1. `data_preprocessing.ipynb`: Adds a new column to categorize data as dog-related ('D'), cat-related ('C'), or both ('B').
+2. `preprocessing.ipynb`: Converts categories to sets ({'Dog'}, {'Cat'}, {'Dog', 'Cat'}).
+
+## Monitoring
+
+Our monitoring solution includes:
+
+1. User feedback collection through the Streamlit interface.
+2. Grafana dashboard with at least 6 charts for visualizing system performance and user interactions.
+
+## Containerization
+
+The entire application is containerized using Docker Compose, including:
+
+- Main application (Flask + Streamlit)
+- PostgreSQL database
+- Grafana for monitoring
+
+## Reproducibility
+
+To run the project:
 
 1. Clone the repository:
 
    ```
-   git clone <repository-url>
-
+   git clone git@github.com:wufengyou/Pet-Care-RAG-Application.git
    ```
-2. Set up environment variables:
-   Create a `.env` file in the root directory and add the following:
+2. Set up environment variables in a `.env` file:
 
    ```
    OPENAI_API_KEY=your_openai_api_key
@@ -38,14 +119,19 @@ This project is a Pet Care Q&A system that uses AI to answer questions about pet
    ```
    docker-compose up --build
    ```
+4. Access the Streamlit interface at `http://localhost:8501`
+5. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
 
-## Usage
+## Best Practices
 
-1. Access the Streamlit interface at `http://localhost:8501`
-2. Enter your pet care question in the text box and click "Ask"
-3. View the AI-generated answer and provide feedback if desired
-4. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
-   ![image](image/c9rui-mcj6i.gif)
+- Hybrid search: We use Minisearch, which combines text and vector search capabilities. (1 point)
+
+## Dataset
+
+We use a well-structured Q&A dataset from Kaggle, focusing on dog and cat care:
+https://www.kaggle.com/datasets/bishnushahi/dog-cat-qa
+
+The dataset contains 583 rows with 'Question' and 'Answer' columns, providing a solid foundation for our pet care RAG system.
 
 ## File Structure
 
@@ -64,102 +150,44 @@ pet-care-qa/
 ├── data/
 │   └── update_category.csv
 │
-└── Pet_care_app/
-    ├── app.py
-    ├── rag.py
-    └── db.py
+├── Pet_care_app/
+│   ├── app.py
+│   ├── rag.py
+│   └── db.py
+│
+└── grafana/
+    ├── init.py
+    └── dashboard.json
 ```
 
-## Problem Description
+## Setting up Grafana
 
-This RAG LLM system could address:
+1. Ensure Grafana is running (starts automatically with `docker-compose up`).
+2. Initialize the dashboard:
 
-Pet care and behavior advice
-Adoption guidance
-Breed-specific information
-Health and wellness tips
-Behavior interpretation
-Pet safety strategies
-Multi-pet household management
-Senior pet care
-Stress management for pets
-Specific pet type care (e.g., military dogs, pit bulls)
+   ```
+   pipenv shell
+   cd grafana
+   python init.py
+   ```
+3. Go to [localhost:3000](http://localhost:3000/) and log in with:
 
-It would serve as a comprehensive resource for pet owners, adopters, and animal care professionals.
+   - Username: admin
+   - Password: admin (change when prompted)
 
-## Dataset
 
-The dataset is founded from Kaggle
+   When prompted, keep "admin" as the new password.
 
-https://www.kaggle.com/datasets/bishnushahi/dog-cat-qa
-
-It is well structed  QA dataset ,and suitable for a noob like me to practice what I learned from this course.
-
-## Project Overview
-
-this RAG (Retrieval-Augmented Generation) application would be valuable in the broader field of pet care, specifically for both dogs and cats
-
-## Running it
-
-We use pipenv for managing dependencies and Python 3.11.
-
-Make sure you have pipenv installed:
-
-it contains 583 data  rows and 2 columns ,one is 'Question' and the other is 'Answer'
-
-```bash
-pip install pipenv
-```
+   ![image](image/vlef5-lhva6.gif)
 
 ## Troubleshooting
 
-If you encounter issues connecting to the Streamlit interface:
+If you encounter issues:
 
-1. Check if all services are running:
-
-   ```
-   docker-compose ps
-   ```
-2. View logs for the app service:
-
-   ```
-   docker-compose logs app
-   ```
+1. Check if all services are running: `docker-compose ps`
+2. View logs for the app service: `docker-compose logs app`
 3. Ensure ports are correctly mapped in `docker-compose.yaml`
 4. Verify Streamlit is installed in the Dockerfile
 5. Check the command in `docker-compose.yaml` starts Streamlit correctly
 
-For more detailed troubleshooting steps, refer to the project documentation or open an issue on the project repository.
-
-### Setting up Grafana
-
-[](https://github.com/alexeygrigorev/fitness-assistant#setting-up-grafana)
-
-All Grafana configurations are in the [`grafana`](https://github.com/alexeygrigorev/fitness-assistant/blob/main/grafana) folder:
-
-* [`init.py`](https://github.com/alexeygrigorev/fitness-assistant/blob/main/grafana/init.py) - for initializing the datasource and the dashboard.
-* [`dashboard.json`](https://github.com/alexeygrigorev/fitness-assistant/blob/main/grafana/dashboard.json) - the actual dashboard (taken from LLM Zoomcamp without changes).
-
-To initialize the dashboard, first ensure Grafana is running (it starts automatically when you do `docker-compose up`).
-
-Then run:
-
-```shell
-pipenv shell
-
-cd grafana
-
-# make sure the POSTGRES_HOST variable is not overwritten 
-env | grep POSTGRES_HOST
-
-python init.py
-```
-
-Then go to [localhost:3000](http://localhost:3000/):
-
-* Login: "admin"
-* Password: "admin"
-
-When prompted, keep "admin" as the new password.
-
-![image](image/vlef5-lhva6.gif)
+For more detailed troubleshooting, please open an issue on the project repository.

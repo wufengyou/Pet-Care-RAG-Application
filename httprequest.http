@@ -1,7 +1,0 @@
-POST http://localhost:5000/feedback 
-Content-Type: application/json
-
-{
-    "conversation_id": "be228f74-5140-45dc-92d1-c86914f3dc96",
-    "feedback": 1
-}

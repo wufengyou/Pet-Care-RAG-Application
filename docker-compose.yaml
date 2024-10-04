@@ -20,7 +20,7 @@ services:
     depends_on:
       - postgres
     command: >
-      sh -c "./wait-for-postgres.sh postgres &&
+      sh -c "./wait_for_postgres.sh postgres &&
              python db_init.py &&
              (gunicorn --bind 0.0.0.0:5000 app:app &) &&
              streamlit run pet_care_streamlit.py"

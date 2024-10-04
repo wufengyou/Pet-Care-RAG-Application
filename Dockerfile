@@ -18,7 +18,7 @@ RUN pip install streamlit
 
 # Copy the application code
 COPY Pet_care_app .
-COPY data/update_category.csv data/update_category.csv
+COPY 2_data/updated_category.csv 2_data/updated_category.csv
 
 # Copy database initialization script
 COPY db_init.py .
@@ -27,8 +27,8 @@ COPY db_init.py .
 COPY pet_care_streamlit.py .
 
 # Copy wait-for-postgres script
-COPY wait-for-postgres.sh .
-RUN chmod +x wait-for-postgres.sh
+COPY wait_for_postgres.sh .
+RUN chmod +x wait_for_postgres.sh
 
 EXPOSE 5000 8501
 
