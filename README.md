@@ -37,7 +37,7 @@ This system aims to assist pet owners, potential adopters, and animal care profe
 Our system implements a full RAG flow:
 
 1. **Knowledge Base**: We use a CSV file (`updated_category.csv`) as our knowledge base, which contains pet care Q&A data.
-2. **Retrieval**: We use Meilisearch for efficient retrieval of relevant information from the knowledge base.
+2. **Retrieval**: We use Minsearch for efficient retrieval of relevant information from the knowledge base.
 3. **LLM**: We utilize OpenAI's GPT model to generate responses based on the retrieved information.
 
 ## Retrieval Evaluation
@@ -45,7 +45,7 @@ Our system implements a full RAG flow:
 We evaluated multiple retrieval approaches:
 
 1. We generated a ground truth retrieval dataset using OpenAI (`ground-truth-retrieval.csv`).
-2. We used Minisearch to index our knowledge base and performed retrieval evaluations.
+2. We used Minsearch to index our knowledge base and performed retrieval evaluations.
 3. We optimized retrieval parameters, achieving:
    - Hit Rate: 0.9080617495711836
    - Mean Reciprocal Rank (MRR): 0.7256326063873232
@@ -124,7 +124,7 @@ To run the project:
 
 ## Best Practices
 
-- Hybrid search: We use Minisearch, which combines text and vector search capabilities.
+- Hybrid search: We use Minsearch, which combines text and vector search capabilities.
 
 ## Dataset
 
