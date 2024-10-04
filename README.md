@@ -124,7 +124,7 @@ To run the project:
 
 ## Best Practices
 
-- Hybrid search: We use Minisearch, which combines text and vector search capabilities. (1 point)
+- Hybrid search: We use Minisearch, which combines text and vector search capabilities.
 
 ## Dataset
 
@@ -174,7 +174,6 @@ pet-care-qa/
 
    - Username: admin
    - Password: admin (change when prompted)
-
 
    When prompted, keep "admin" as the new password.
 
