@@ -122,7 +122,6 @@ To run the project:
 4. Access the Streamlit interface at `http://localhost:8501`
 5. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
 
-
 ## Mage.ai Data Pipeline ( implement in rag-project folder)
 
 We've implemented a data pipeline using Mage.ai to automate our data processing and indexing. The pipeline consists of the following components:
@@ -148,8 +147,7 @@ The pipeline uses questions from `2_data/ground-truth-retrieval.csv` for queryin
   * elasticsearch
 * New startup script: `./scripts/start.sh`
 
-
-![image](image/clip0130.gif)
+![image](image/clip0130_.gif)
 
 Best Practices
 
@@ -167,7 +165,7 @@ The dataset contains 583 rows with 'Question' and 'Answer' columns, providing a 
 ```
 pet-care-rag-application/
 │
-├── 0_dataset/                            
+├── 0_dataset/                          
 │   └── Dog-Cat-QA.csv
 │
 ├── 1_datapreprocessing/
