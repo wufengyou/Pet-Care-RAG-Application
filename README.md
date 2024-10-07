@@ -126,11 +126,13 @@ To run the project:
 
 We've implemented a data pipeline using Mage.ai to automate our data processing and indexing. The pipeline consists of the following components:
 
-1. **Data Loader**: `eldritch_apex.py`
+I put them in 4_mega_custom_code folder 
+
+1. **Data Loader**: `DataLoader.py`
    * Custom code to download data from GitHub
-2. **Data Exporter**: `ethereal_quasar.py`
+2. **Data Exporter**: `DataExporter.py`
    * Indexes documents to Elasticsearch
-3. **Data Loader**: `starlit_seraph.py`
+3. **Data Loader**: `DataLoader2.py`
    * Performs queries on the indexed data
 
 The pipeline uses questions from `2_data/ground-truth-retrieval.csv` for querying and validates that the corresponding ground truth questions receive the highest scores.
@@ -139,13 +141,14 @@ The pipeline uses questions from `2_data/ground-truth-retrieval.csv` for queryin
 
 ## Mage implement detai
 
-* Added a new `rag-project` folder with its own `docker-compose.yaml` and `Dockerfile`
+* git clone https://github.com/mage-ai/rag-project
 * Updated `requirements.txt` to include:
   * numpy == 1.26.4
   * spacy
   * python-docx
   * elasticsearch
 * New startup script: `./scripts/start.sh`
+*
 
 ![image](image/clip0130_.gif)
 
@@ -165,7 +168,7 @@ The dataset contains 583 rows with 'Question' and 'Answer' columns, providing a 
 ```
 pet-care-rag-application/
 │
-├── 0_dataset/                          
+├── 0_dataset/                      
 │   └── Dog-Cat-QA.csv
 │
 ├── 1_datapreprocessing/
