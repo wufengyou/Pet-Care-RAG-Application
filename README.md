@@ -126,7 +126,7 @@ To run the project:
 
 We've implemented a data pipeline using Mage.ai to automate our data processing and indexing. The pipeline consists of the following components:
 
-I put them in 4_mega_custom_code folder 
+I put them in 4_mega_custom_code folder
 
 1. **Data Loader**: `DataLoader.py`
    * Custom code to download data from GitHub
@@ -139,7 +139,7 @@ The pipeline uses questions from `2_data/ground-truth-retrieval.csv` for queryin
 
 ![image](image/clip0129.gif)
 
-## Mage implement detai
+## Mage implement detail
 
 * git clone https://github.com/mage-ai/rag-project
 * Updated `requirements.txt` to include:
@@ -168,7 +168,7 @@ The dataset contains 583 rows with 'Question' and 'Answer' columns, providing a 
 ```
 pet-care-rag-application/
 │
-├── 0_dataset/                      
+├── 0_dataset/                    
 │   └── Dog-Cat-QA.csv
 │
 ├── 1_datapreprocessing/
