@@ -122,9 +122,38 @@ To run the project:
 4. Access the Streamlit interface at `http://localhost:8501`
 5. Access Grafana dashboards at `http://localhost:3000` (default credentials: admin/admin)
 
-## Best Practices
 
-- Hybrid search: We use Minsearch, which combines text and vector search capabilities.
+## Mage.ai Data Pipeline ( implement in rag-project folder)
+
+We've implemented a data pipeline using Mage.ai to automate our data processing and indexing. The pipeline consists of the following components:
+
+1. **Data Loader**: `eldritch_apex.py`
+   * Custom code to download data from GitHub
+2. **Data Exporter**: `ethereal_quasar.py`
+   * Indexes documents to Elasticsearch
+3. **Data Loader**: `starlit_seraph.py`
+   * Performs queries on the indexed data
+
+The pipeline uses questions from `2_data/ground-truth-retrieval.csv` for querying and validates that the corresponding ground truth questions receive the highest scores.
+
+![image](image/clip0129.gif)
+
+## Mage implement detai
+
+* Added a new `rag-project` folder with its own `docker-compose.yaml` and `Dockerfile`
+* Updated `requirements.txt` to include:
+  * numpy == 1.26.4
+  * spacy
+  * python-docx
+  * elasticsearch
+* New startup script: `./scripts/start.sh`
+
+
+![image](image/clip0130.gif)
+
+Best Practices
+
+- Hybrid search: We use ElasticSearch, which combines text and vector search capabilities.
 
 ## Dataset
 
@@ -136,28 +165,52 @@ The dataset contains 583 rows with 'Question' and 'Answer' columns, providing a 
 ## File Structure
 
 ```
-pet-care-qa/
+pet-care-rag-application/
 │
-├── Dockerfile
-├── docker-compose.yaml
-├── pet_care_streamlit.py
-├── wait-for-postgres.sh
+├── 0_dataset/                            
+│   └── Dog-Cat-QA.csv
+│
+├── 1_datapreprocessing/
+│   ├── data_preprocessing.ipynb
+│   └── preprocessing.ipynb
+│
+├── 2_data/
+│   ├── ground-truth-retrieval.csv
+│   ├── rag-eval-gpt-4o-mini_100.csv
+│   ├── rag-eval-gpt-4o-mini.csv
+│   ├── updated_category.csv
+│   └── updated_file.csv
+│
+├── 3_notebooks/
+│   ├── evaluation-data-generation.ipynb
+│   ├── minsearch.py
+│   ├── questions_1.pkl
+│   ├── questions.pkl
+│   ├── questions1.pkl
+│   ├── rag_test.ipynb
+│   └── results.json
+│
+├── grafana/
+│   ├── dashboard.json
+│   └── init.py
+│
+├── image/
+│
+├── Pet_care_app/
+│
+├── rag-project/
+│
+├── .env.template
+├── .gitignore
 ├── db_init.py
+├── docker-compose.yaml
+├── Dockerfile
+├── pet_care_streamlit.py
 ├── Pipfile
 ├── Pipfile.lock
 ├── README.md
-│
-├── data/
-│   └── update_category.csv
-│
-├── Pet_care_app/
-│   ├── app.py
-│   ├── rag.py
-│   └── db.py
-│
-└── grafana/
-    ├── init.py
-    └── dashboard.json
+├── wait-for-postgres.sh
+└── wait-for-db.py
 ```
 
 ## Setting up Grafana
